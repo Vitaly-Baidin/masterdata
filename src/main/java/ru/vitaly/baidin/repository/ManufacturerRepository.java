@@ -11,13 +11,10 @@ import java.util.List;
 @Repository
 public interface ManufacturerRepository extends CrudRepository<Manufacturer, String> {
 
-
-
-
-    @Query(value = "SELECT manufacturer_name AS name, count(*) AS cnt " +
-            "FROM manufacturer AS m " +
-            "INNER JOIN product p ON m.manufacturer_id = p.manufacturer_id " +
-            "GROUP BY p.manufacturer_id " +
-            "HAVING cnt > :count", nativeQuery = true)
-    List<String> getAllByQuery(@Param("count") int count);
+    @Query(value = "SELECT manufacturer_name AS name\n" +
+            "FROM manufacturer AS m\n" +
+            "INNER JOIN product p ON m.manufacturer_id = p.manufacturer_id\n" +
+            "GROUP BY p.manufacturer_id\n" +
+            "HAVING COUNT(*)  > :count", nativeQuery = true)
+    List<String> getAllByQuery(@Param("count") String count);
 }
