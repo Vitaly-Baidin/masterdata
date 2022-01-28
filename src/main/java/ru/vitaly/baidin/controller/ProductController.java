@@ -8,7 +8,6 @@ import ru.vitaly.baidin.model.Product;
 import ru.vitaly.baidin.repository.ManufacturerRepository;
 import ru.vitaly.baidin.repository.ProductRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,11 +20,8 @@ public class ProductController {
     private ManufacturerRepository manufacturerRepository;
 
     @PostMapping("/addProduct/")
-    public void addProduct(@RequestParam String productId, @RequestParam(required = false) String productName, @RequestParam String manufacturerId) {
-        Product product = new Product();
-        product.setProductId(productId);
-        product.setManufacturerId(manufacturerRepository.findById(manufacturerId).get());
-        product.setProductName(productName);
+    public void addProduct(Product product, @RequestParam String manufacturerId) {
+        product.setManufacturer(manufacturerRepository.findById(manufacturerId).get());
         productRepository.save(product);
     }
 
@@ -38,25 +34,22 @@ public class ProductController {
 
         Product product = optionalProduct.get();
 
-        product.setProductId(productId);
-        product.setManufacturerId(manufacturerRepository.findById(manufacturerId).get());
-        product.setProductName(productName);
+        if (!productId.isEmpty()) {
+            product.setProductId(productId);
+        }
+        if (!productName.isEmpty()) {
+            product.setProductName(productName);
+        }
+        if (!manufacturerId.isEmpty()) {
+            product.setManufacturer(manufacturerRepository.findById(manufacturerId).get());
+        }
         productRepository.save(product);
         return new ResponseEntity(product, HttpStatus.OK);
     }
 
     @GetMapping("/getAllProducts/")
     public List<Product> getAllProductOfCompany(@RequestParam String manufacturerId) {
-        Iterable<Product> productIterable = productRepository.findAll();
-
-        ArrayList<Product> products = new ArrayList<>();
-
-        for (Product product : productIterable) {
-            if (product.getManufacturerId().getManufactureId().equals(manufacturerId)) {
-                products.add(product);
-            }
-        }
-        return products;
+        return manufacturerRepository.findById(manufacturerId).get().getProducts();
     }
 
     @GetMapping("/getManufacturers/")
