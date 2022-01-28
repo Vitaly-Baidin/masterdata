@@ -17,4 +17,6 @@ public interface ManufacturerRepository extends CrudRepository<Manufacturer, Str
             "GROUP BY p.manufacturer_id\n" +
             "HAVING COUNT(*)  > :count", nativeQuery = true)
     List<String> getAllByQuery(@Param("count") String count);
+
+    Manufacturer findByManufactureId(String manufactureId);
 }
