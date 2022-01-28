@@ -26,19 +26,10 @@ public class ProductController {
     }
 
     @PutMapping("/addProduct/{productId}")
-    public ResponseEntity putProduct(@RequestParam String productId, @RequestParam String productName, @RequestParam String manufacturerId) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
+    public ResponseEntity putProduct(Product product, @RequestParam String manufacturerId) {
+        Optional<Product> optionalProduct = productRepository.findById(product.getProductId());
         if (!optionalProduct.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-
-        Product product = optionalProduct.get();
-
-        if (!productId.isEmpty()) {
-            product.setProductId(productId);
-        }
-        if (!productName.isEmpty()) {
-            product.setProductName(productName);
         }
         if (!manufacturerId.isEmpty()) {
             product.setManufacturer(manufacturerRepository.findById(manufacturerId).get());
