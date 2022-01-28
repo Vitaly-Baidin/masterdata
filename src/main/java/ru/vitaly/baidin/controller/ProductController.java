@@ -3,7 +3,7 @@ package ru.vitaly.baidin.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.vitaly.baidin.model.Product;
-import ru.vitaly.baidin.repository.ManufacturerRepository;
+import ru.vitaly.baidin.model.ProductDto;
 import ru.vitaly.baidin.service.ProductService;
 
 @RestController
@@ -11,12 +11,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private ManufacturerRepository manufacturerRepository;
-
     @PostMapping("/addProduct/")
-    public void addProduct(Product product, @RequestParam String manufacturerId) {
-        productService.addProduct(product, manufacturerId);
+    public void addProduct(@ModelAttribute ProductDto productDto) {
+        productService.addProduct(productDto);
     }
 
     @PutMapping("/addProduct/{productId}")
