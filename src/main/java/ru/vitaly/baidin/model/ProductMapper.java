@@ -5,21 +5,24 @@ import org.springframework.stereotype.Service;
 import ru.vitaly.baidin.repository.ManufacturerRepository;
 
 @Service
-public class ProductMapper {
+public class ProductMapper implements Mapper<ProductDto, Product> {
 
     @Autowired
     ManufacturerRepository manufacturerRepository;
 
     //из entity в dto
-    public ProductDto mapToProductDto(Product product){
+    @Override
+    public ProductDto mapToDto(Product product){
         ProductDto dto = new ProductDto();
         dto.setProductId(product.getProductId());
         dto.setProductName(product.getProductName());
         dto.setManufacturerId(product.getManufacturer().getManufactureId());
         return dto;
     }
+
     //из dto в entity
-    public Product mapToProductEntity(ProductDto dto){
+    @Override
+    public Product mapToModel(ProductDto dto){
         Product product = new Product();
         product.setProductId(dto.getProductId());
         product.setProductName(dto.getProductName());

@@ -22,7 +22,7 @@ public class ProductService implements IProductService{
 
     @Override
     public void addProduct(ProductDto productDto) {
-        productRepository.save(productMapper.mapToProductEntity(productDto));
+        productRepository.save(productMapper.mapToModel(productDto));
     }
 
     @Override
