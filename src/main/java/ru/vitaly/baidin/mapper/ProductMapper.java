@@ -1,7 +1,9 @@
-package ru.vitaly.baidin.model;
+package ru.vitaly.baidin.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.vitaly.baidin.dto.ProductDto;
+import ru.vitaly.baidin.model.Product;
 import ru.vitaly.baidin.repository.ManufacturerRepository;
 
 @Service

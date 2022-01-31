@@ -1,7 +1,7 @@
 package ru.vitaly.baidin.service;
 
 import ru.vitaly.baidin.model.Product;
-import ru.vitaly.baidin.model.ProductDto;
+import ru.vitaly.baidin.dto.ProductDto;
 
 public interface IProductService {
 

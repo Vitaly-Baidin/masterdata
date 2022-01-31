@@ -1,4 +1,4 @@
-package ru.vitaly.baidin.model;
+package ru.vitaly.baidin.dto;
 
 import lombok.Data;
 
